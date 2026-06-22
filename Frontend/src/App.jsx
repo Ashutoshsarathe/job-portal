@@ -6,7 +6,7 @@ import Login from './components/authentication/Login'
 import Register from './components/authentication/Register'
 import Home from './components/components_lite/Home'
 import PrivacyPolicy from './components/components_lite/PrivacyPolicy'
-import TermsOfService from './components/components_lite/TermsOfService.jsx'
+// import TermsOfService from './components/components_lite/TermsofService.jsx'
 import Jobs from './components/components_lite/Jobs'
 import Browse from './components/components_lite/Browse'
 import Profile from './components/components_lite/Profile'
@@ -20,6 +20,7 @@ import Applicants from './components/admincomponents/Applicants'
 import ProtectedRoute from './components/admincomponents/ProtectedRoute'
 import EditJob from './components/admincomponents/EditJob'
 import Dashboard from './components/admincomponents/Dashboard'
+import TermsOfService from './components/components_lite/Temp'
 
 const appRouter = createBrowserRouter([
   {
