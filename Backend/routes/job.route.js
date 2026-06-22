@@ -7,11 +7,28 @@ import { getAdminJobs, getAllJobs, getJobById, postJob, updateJob, deleteJob, } 
 const router = express.Router();
 
 router.route("/post").post(authenticateToken, postJob);
-router.route("/get").get(authenticateToken, getAllJobs);
+
+router.route("/get").get(getAllJobs);
+
 router.route("/getadminjobs").get(authenticateToken, getAdminJobs);
-router.route("/get/:id").get(authenticateToken, getJobById);
+
+router.route("/get/:id").get(getJobById);
+
 router.route("/update/:id").put(authenticateToken, updateJob);
+
 router.route("/delete/:id").delete(authenticateToken, deleteJob);
 
 
 export default router;
+
+
+
+
+
+// old 
+// router.route("/post").post(authenticateToken, postJob);
+// // router.route("/get").get(authenticateToken, getAllJobs);
+// router.route("/getadminjobs").get(authenticateToken, getAdminJobs);
+// router.route("/get/:id").get(authenticateToken, getJobById);
+// router.route("/update/:id").put(authenticateToken, updateJob);
+// router.route("/delete/:id").delete(authenticateToken, deleteJob);
