@@ -20,7 +20,8 @@ import Applicants from './components/admincomponents/Applicants'
 import ProtectedRoute from './components/admincomponents/ProtectedRoute'
 import EditJob from './components/admincomponents/EditJob'
 import Dashboard from './components/admincomponents/Dashboard'
-import TermsOfService from './components/components_lite/Temp'
+import TermsOfService from './components/components_lite/TermOfService'
+// import TermsOfService from './components/components_lite/Temp'
 
 const appRouter = createBrowserRouter([
   {
