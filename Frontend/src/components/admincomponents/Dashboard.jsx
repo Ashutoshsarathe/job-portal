@@ -12,8 +12,14 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchStats = async () => {
             try {
+                // const res = await axios.get(
+                //     "http://localhost:5011/api/dashboard/stats",
+                //     {
+                //         withCredentials: true,
+                //     }
+                // );
                 const res = await axios.get(
-                    "http://localhost:5011/api/dashboard/stats",
+                    "https://job-portal-nc4t.onrender.com/api/dashboard/stats",
                     {
                         withCredentials: true,
                     }
@@ -173,10 +179,10 @@ const Dashboard = () => {
 
                             <span
                                 className={`px-3 py-1 rounded-full text-sm ${app.status === "accepted"
-                                        ? "bg-green-100 text-green-700"
-                                        : app.status === "rejected"
-                                            ? "bg-red-100 text-red-700"
-                                            : "bg-yellow-100 text-yellow-700"
+                                    ? "bg-green-100 text-green-700"
+                                    : app.status === "rejected"
+                                        ? "bg-red-100 text-red-700"
+                                        : "bg-yellow-100 text-yellow-700"
                                     }`}
                             >
                                 {app.status}
