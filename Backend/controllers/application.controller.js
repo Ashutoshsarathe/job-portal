@@ -399,57 +399,57 @@ export const scheduleInterview = async (req, res) => {
 
         await application.save();
 
-        await sendEmail(
-            application.applicant.email,
+        // await sendEmail(
+        //     application.applicant.email,
 
-            "Interview Scheduled 🎉",
+        //     "Interview Scheduled 🎉",
 
-            "Interview Scheduled",
+        //     "Interview Scheduled",
 
-            `
-            <div style="
-                max-width:600px;
-                margin:auto;
-                padding:30px;
-                border:1px solid #ddd;
-                border-radius:12px;
-                font-family:Arial,sans-serif;
-            ">
+        //     `
+        //     <div style="
+        //         max-width:600px;
+        //         margin:auto;
+        //         padding:30px;
+        //         border:1px solid #ddd;
+        //         border-radius:12px;
+        //         font-family:Arial,sans-serif;
+        //     ">
 
-                <h1 style="color:#6B3AC2;">
-                    Interview Scheduled 🎉
-                </h1>
+        //         <h1 style="color:#6B3AC2;">
+        //             Interview Scheduled 🎉
+        //         </h1>
 
-                <p>
-                    Hello <b>${application.applicant.fullname}</b>,
-                </p>
+        //         <p>
+        //             Hello <b>${application.applicant.fullname}</b>,
+        //         </p>
 
-                <p>
-                    Your interview for
-                    <b>${application.job.title}</b>
-                    has been scheduled.
-                </p>
+        //         <p>
+        //             Your interview for
+        //             <b>${application.job.title}</b>
+        //             has been scheduled.
+        //         </p>
 
-                <p>
-                    <b>Date:</b>
-                    ${new Date(interviewDate).toLocaleString()}
-                </p>
+        //         <p>
+        //             <b>Date:</b>
+        //             ${new Date(interviewDate).toLocaleString()}
+        //         </p>
 
-                <p>
-                    <b>Meeting Link:</b><br/>
-                    <a href="${interviewLink}">
-                        ${interviewLink}
-                    </a>
-                </p>
+        //         <p>
+        //             <b>Meeting Link:</b><br/>
+        //             <a href="${interviewLink}">
+        //                 ${interviewLink}
+        //             </a>
+        //         </p>
 
-                <p>
-                    Best Regards,<br/>
-                    Job Portal Team
-                </p>
+        //         <p>
+        //             Best Regards,<br/>
+        //             Job Portal Team
+        //         </p>
 
-            </div>
-            `
-        );
+        //     </div>
+        //     `
+        // );
 
         return res.status(200).json({
             success: true,
