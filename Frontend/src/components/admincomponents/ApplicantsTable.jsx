@@ -151,6 +151,8 @@ const ApplicantsTable = ({ searchText }) => {
 
         try {
 
+            console.log("BEFORE API CALL");
+
             const res = await axios.post(
                 `${APPLICATION_API_ENDPOINT}/schedule/${selectedApplicationId}`,
                 {
@@ -162,26 +164,29 @@ const ApplicantsTable = ({ searchText }) => {
                 }
             );
 
+            console.log("AFTER API CALL");
             console.log("API RESPONSE:", res.data);
 
             if (res.data.success) {
-                toast.success(
-                    "Interview Scheduled Successfully"
-                );
-
+                toast.success("Interview Scheduled Successfully");
                 setShowInterviewForm(false);
                 setInterviewDate("");
                 setInterviewLink("");
-
                 window.location.reload();
             }
 
         } catch (error) {
 
-            console.log("ERROR:", error);
+            console.log("FULL ERROR:", error);
+
+            console.log(
+                "ERROR RESPONSE:",
+                error?.response?.data
+            );
 
             toast.error(
-                error?.response?.data?.message
+                error?.response?.data?.message ||
+                "Something went wrong"
             );
         }
     };
