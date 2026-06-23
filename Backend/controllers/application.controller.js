@@ -498,7 +498,7 @@ export const scheduleInterview = async (req, res) => {
 
         console.log("STEP 5");
 
-        await sendEmail(...);
+        // await sendEmail(...);
 
         console.log("STEP 6");
 
