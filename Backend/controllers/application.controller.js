@@ -367,20 +367,120 @@ export const updateStatus = async (req, res) => {
 // };
 
 
+// export const scheduleInterview = async (req, res) => {
+//     try {
+
+//         console.log("SCHEDULE API HIT");
+//         console.log("BODY:", req.body);
+//         console.log("PARAMS:", req.params);
+
+//         const { interviewDate, interviewLink } = req.body;
+
+//         const applicationId = req.params.id;
+
+//         const application = await Application.findById(applicationId)
+//             .populate("applicant")
+//             .populate("job");
+
+//         if (!application) {
+//             return res.status(404).json({
+//                 success: false,
+//                 message: "Application not found"
+//             });
+//         }
+
+//         // application.interviewDate = interviewDate;
+//         // application.interviewLink = interviewLink;
+
+//         // await application.save();
+//         application.interviewDate = interviewDate;
+//         application.interviewLink = interviewLink;
+//         application.status = "schedule interview";
+
+//         await application.save();
+
+//         // await sendEmail(
+//         //     application.applicant.email,
+
+//         //     "Interview Scheduled 🎉",
+
+//         //     "Interview Scheduled",
+
+//         //     `
+//         //     <div style="
+//         //         max-width:600px;
+//         //         margin:auto;
+//         //         padding:30px;
+//         //         border:1px solid #ddd;
+//         //         border-radius:12px;
+//         //         font-family:Arial,sans-serif;
+//         //     ">
+
+//         //         <h1 style="color:#6B3AC2;">
+//         //             Interview Scheduled 🎉
+//         //         </h1>
+
+//         //         <p>
+//         //             Hello <b>${application.applicant.fullname}</b>,
+//         //         </p>
+
+//         //         <p>
+//         //             Your interview for
+//         //             <b>${application.job.title}</b>
+//         //             has been scheduled.
+//         //         </p>
+
+//         //         <p>
+//         //             <b>Date:</b>
+//         //             ${new Date(interviewDate).toLocaleString()}
+//         //         </p>
+
+//         //         <p>
+//         //             <b>Meeting Link:</b><br/>
+//         //             <a href="${interviewLink}">
+//         //                 ${interviewLink}
+//         //             </a>
+//         //         </p>
+
+//         //         <p>
+//         //             Best Regards,<br/>
+//         //             Job Portal Team
+//         //         </p>
+
+//         //     </div>
+//         //     `
+//         // );
+
+//         return res.status(200).json({
+//             success: true,
+//             message: "Interview Scheduled"
+//         });
+
+//     } catch (error) {
+
+//         console.log(error);
+
+//         return res.status(500).json({
+//             success: false,
+//             message: "Server Error"
+//         });
+//     }
+// };
+
 export const scheduleInterview = async (req, res) => {
     try {
-
-        console.log("SCHEDULE API HIT");
-        console.log("BODY:", req.body);
-        console.log("PARAMS:", req.params);
+        console.log("STEP 1");
 
         const { interviewDate, interviewLink } = req.body;
-
         const applicationId = req.params.id;
+
+        console.log("STEP 2");
 
         const application = await Application.findById(applicationId)
             .populate("applicant")
             .populate("job");
+
+        console.log("STEP 3", application);
 
         if (!application) {
             return res.status(404).json({
@@ -389,67 +489,18 @@ export const scheduleInterview = async (req, res) => {
             });
         }
 
-        // application.interviewDate = interviewDate;
-        // application.interviewLink = interviewLink;
-
-        // await application.save();
         application.interviewDate = interviewDate;
         application.interviewLink = interviewLink;
-        application.status = "schedule interview";
+
+        console.log("STEP 4");
 
         await application.save();
 
-        // await sendEmail(
-        //     application.applicant.email,
+        console.log("STEP 5");
 
-        //     "Interview Scheduled 🎉",
+        await sendEmail(...);
 
-        //     "Interview Scheduled",
-
-        //     `
-        //     <div style="
-        //         max-width:600px;
-        //         margin:auto;
-        //         padding:30px;
-        //         border:1px solid #ddd;
-        //         border-radius:12px;
-        //         font-family:Arial,sans-serif;
-        //     ">
-
-        //         <h1 style="color:#6B3AC2;">
-        //             Interview Scheduled 🎉
-        //         </h1>
-
-        //         <p>
-        //             Hello <b>${application.applicant.fullname}</b>,
-        //         </p>
-
-        //         <p>
-        //             Your interview for
-        //             <b>${application.job.title}</b>
-        //             has been scheduled.
-        //         </p>
-
-        //         <p>
-        //             <b>Date:</b>
-        //             ${new Date(interviewDate).toLocaleString()}
-        //         </p>
-
-        //         <p>
-        //             <b>Meeting Link:</b><br/>
-        //             <a href="${interviewLink}">
-        //                 ${interviewLink}
-        //             </a>
-        //         </p>
-
-        //         <p>
-        //             Best Regards,<br/>
-        //             Job Portal Team
-        //         </p>
-
-        //     </div>
-        //     `
-        // );
+        console.log("STEP 6");
 
         return res.status(200).json({
             success: true,
@@ -457,8 +508,7 @@ export const scheduleInterview = async (req, res) => {
         });
 
     } catch (error) {
-
-        console.log(error);
+        console.log("SCHEDULE ERROR:", error);
 
         return res.status(500).json({
             success: false,
