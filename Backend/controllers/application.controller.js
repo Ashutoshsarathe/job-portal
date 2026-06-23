@@ -93,6 +93,41 @@ export const getApplicants = async (req, res) => { // kitne user apply kiye hai 
     }
 }
 
+
+export const updateStatus = async (req, res) => {
+    try {
+        console.log("STEP 1");
+
+        const { status } = req.body;
+        const applicationId = req.params.id;
+
+        console.log("STEP 2", status, applicationId);
+
+        const application = await Application.findById(applicationId);
+
+        console.log("STEP 3");
+
+        application.status = status.toLowerCase();
+
+        await application.save();
+
+        console.log("STEP 4");
+
+        return res.status(200).json({
+            success: true,
+            message: "Updated"
+        });
+
+    } catch (error) {
+        console.log("ERROR:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
 // export const updateStatus = async (req, res) => {
 //     try {
 //         const { status } = req.body;
@@ -165,144 +200,142 @@ export const getApplicants = async (req, res) => { // kitne user apply kiye hai 
 //         });
 //     }
 // };
-export const updateStatus = async (req, res) => {
-    try {
-        const { status } = req.body;
-        const applicationId = req.params.id;
+// export const updateStatus = async (req, res) => {
+//     try {
+//         const { status } = req.body;
+//         const applicationId = req.params.id;
 
-        console.log("Application ID:", applicationId);
+//         console.log("Application ID:", applicationId);
 
-        const application = await Application.findById(applicationId)
-            .populate("applicant")
-            .populate("job");
+//         const application = await Application.findById(applicationId)
+//             .populate("applicant")
+//             .populate("job");
 
-        console.log("Before Update:", application);
+//         console.log("Before Update:", application);
 
-        application.status = status.toLowerCase();
+//         application.status = status.toLowerCase();
 
-        await application.save();
-
-
-
-        const applicantEmail =
-            application.applicant.email;
-
-        const applicantName =
-            application.applicant.fullname;
-
-        const jobTitle =
-            application.job.title;
-
-        if (status.toLowerCase() === "accepted") {
-
-            await sendEmail(
-                applicantEmail,
-
-                "Application Accepted 🎉",
-
-                `Congratulations! Your application for ${jobTitle} has been accepted.`,
-
-                `
-        <div style="
-            max-width:600px;
-            margin:auto;
-            padding:30px;
-            border:1px solid #ddd;
-            border-radius:12px;
-            font-family:Arial,sans-serif;
-        ">
-
-            <h1 style="color:green;">
-                🎉 Congratulations!
-            </h1>
-
-            <p>
-                Hello <b>${applicantName}</b>,
-            </p>
-
-            <p>
-                Your application for
-                <b>${jobTitle}</b>
-                has been accepted.
-            </p>
-
-            <div style="
-                background:#dcfce7;
-                padding:15px;
-                border-radius:8px;
-                margin-top:15px;
-            ">
-                Our recruitment team will contact you soon.
-            </div>
-
-            <p style="margin-top:20px;">
-                Best Regards,<br/>
-                Job Portal Team
-            </p>
-
-        </div>
-        `
-            );
-        }
-
-        if (status.toLowerCase() === "rejected") {
-
-            await sendEmail(
-                applicantEmail,
-
-                "Application Update",
-
-                `Your application for ${jobTitle} was not selected.`,
-
-                `
-        <div style="
-            max-width:600px;
-            margin:auto;
-            padding:30px;
-            border:1px solid #ddd;
-            border-radius:12px;
-            font-family:Arial,sans-serif;
-        ">
-
-            <h1 style="color:#dc2626;">
-                Application Update
-            </h1>
-
-            <p>
-                Hello <b>${applicantName}</b>,
-            </p>
-
-            <p>
-                Thank you for applying for
-                <b>${jobTitle}</b>.
-            </p>
-
-            <p>
-                Unfortunately your application
-                was not selected for the next round.
-            </p>
-
-            <div style="
-                background:#fee2e2;
-                padding:15px;
-                border-radius:8px;
-                margin-top:15px;
-            ">
-                We encourage you to apply
-                for future opportunities.
-            </div>
-
-            <p style="margin-top:20px;">
-                Best Regards,<br/>
-                Job Portal Team
-            </p>
-
-        </div>
-        `
-            );
-        }
+//         await application.save();
 
 
+
+//         const applicantEmail =
+//             application.applicant.email;
+
+//         const applicantName =
+//             application.applicant.fullname;
+
+//         const jobTitle =
+//             application.job.title;
+
+//         // if (status.toLowerCase() === "accepted") {
+
+//         //     await sendEmail(
+//         //         applicantEmail,
+
+//         //         "Application Accepted 🎉",
+
+//         //         `Congratulations! Your application for ${jobTitle} has been accepted.`,
+
+//         //         `
+//         // <div style="
+//         //     max-width:600px;
+//         //     margin:auto;
+//         //     padding:30px;
+//         //     border:1px solid #ddd;
+//         //     border-radius:12px;
+//         //     font-family:Arial,sans-serif;
+//         // ">
+
+//         //     <h1 style="color:green;">
+//         //         🎉 Congratulations!
+//         //     </h1>
+
+//         //     <p>
+//         //         Hello <b>${applicantName}</b>,
+//         //     </p>
+
+//         //     <p>
+//         //         Your application for
+//         //         <b>${jobTitle}</b>
+//         //         has been accepted.
+//         //     </p>
+
+//         //     <div style="
+//         //         background:#dcfce7;
+//         //         padding:15px;
+//         //         border-radius:8px;
+//         //         margin-top:15px;
+//         //     ">
+//         //         Our recruitment team will contact you soon.
+//         //     </div>
+
+//         //     <p style="margin-top:20px;">
+//         //         Best Regards,<br/>
+//         //         Job Portal Team
+//         //     </p>
+
+//         // </div>
+//         // `
+//         //     );
+//         // }
+
+//         // if (status.toLowerCase() === "rejected") {
+
+//         //     await sendEmail(
+//         //         applicantEmail,
+
+//         //         "Application Update",
+
+//         //         `Your application for ${jobTitle} was not selected.`,
+
+//         //         `
+//         // <div style="
+//         //     max-width:600px;
+//         //     margin:auto;
+//         //     padding:30px;
+//         //     border:1px solid #ddd;
+//         //     border-radius:12px;
+//         //     font-family:Arial,sans-serif;
+//         // ">
+
+//         //     <h1 style="color:#dc2626;">
+//         //         Application Update
+//         //     </h1>
+
+//         //     <p>
+//         //         Hello <b>${applicantName}</b>,
+//         //     </p>
+
+//         //     <p>
+//         //         Thank you for applying for
+//         //         <b>${jobTitle}</b>.
+//         //     </p>
+
+//         //     <p>
+//         //         Unfortunately your application
+//         //         was not selected for the next round.
+//         //     </p>
+
+//         //     <div style="
+//         //         background:#fee2e2;
+//         //         padding:15px;
+//         //         border-radius:8px;
+//         //         margin-top:15px;
+//         //     ">
+//         //         We encourage you to apply
+//         //         for future opportunities.
+//         //     </div>
+
+//         //     <p style="margin-top:20px;">
+//         //         Best Regards,<br/>
+//         //         Job Portal Team
+//         //     </p>
+
+//         // </div>
+//         // `
+//         //     );
+//         // }
 
 
 
@@ -310,17 +343,28 @@ export const updateStatus = async (req, res) => {
 
 
 
-        console.log("After Update:", application);
 
-        return res.status(200).json({
-            message: "Application status updated successfully",
-            success: true
-        });
 
-    } catch (error) {
-        console.log(error);
-    }
-};
+//         console.log("After Update:", application);
+
+//         return res.status(200).json({
+//             message: "Application status updated successfully",
+//             success: true
+//         });
+
+//     }
+//     // catch (error) {
+//     //     console.log(error);
+//     // }
+//     catch (error) {
+//         console.log(error);
+
+//         return res.status(500).json({
+//             success: false,
+//             message: error.message
+//         });
+//     }
+// };
 
 
 export const scheduleInterview = async (req, res) => {

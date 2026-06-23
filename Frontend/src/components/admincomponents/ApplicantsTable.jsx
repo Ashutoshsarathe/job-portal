@@ -75,41 +75,65 @@ const ApplicantsTable = ({ searchText }) => {
     const [interviewLink, setInterviewLink] =
         useState("");
 
-
     const statusHandler = async (status, id) => {
-        if (status === "Schedule Interview") {
-
-            setSelectedApplicationId(id);
-
-            setShowInterviewForm(true);
-
-            return;
-        }
-        console.log("Status:", status);
-        console.log("Application ID:", id);
+        console.log("CLICKED");
 
         try {
-            axios.defaults.withCredentials = true;
+            console.log("BEFORE API");
 
             const res = await axios.post(
                 `${APPLICATION_API_ENDPOINT}/status/${id}/update`,
-                { status }
+                { status },
+                {
+                    withCredentials: true
+                }
             );
 
-            console.log("Response:", res.data);
+            console.log("AFTER API");
+            console.log(res.data);
 
-            // if (res.data.success) {
-            //     toast.success(res.data.message);
-            // }
-            if (res.data.success) {
-                toast.success(res.data.message);
-                window.location.reload();
-            }
         } catch (error) {
-            console.log("Error:", error.response?.data);
-            toast.error(error.response?.data?.message);
+            console.log("ERROR");
+            console.log(error);
         }
     };
+    // const statusHandler = async (status, id) => {
+    //     if (status === "Schedule Interview") {
+
+    //         setSelectedApplicationId(id);
+
+    //         setShowInterviewForm(true);
+
+    //         return;
+    //     }
+    //     console.log("Status:", status);
+    //     console.log("Application ID:", id);
+
+    //     try {
+    //         axios.defaults.withCredentials = true;
+
+    //         const res = await axios.post(
+    //             `${APPLICATION_API_ENDPOINT}/status/${id}/update`,
+    //             { status },
+    //             {
+    //                 withCredentials: true
+    //             }
+    //         );
+
+    //         console.log("Response:", res.data);
+
+    //         // if (res.data.success) {
+    //         //     toast.success(res.data.message);
+    //         // }
+    //         if (res.data.success) {
+    //             toast.success(res.data.message);
+    //             window.location.reload();
+    //         }
+    //     } catch (error) {
+    //         console.log("Error:", error.response?.data);
+    //         toast.error(error.response?.data?.message);
+    //     }
+    // };
 
 
     const scheduleInterviewHandler = async () => {
@@ -319,7 +343,7 @@ const ApplicantsTable = ({ searchText }) => {
                                     </TableCell>
 
                                     <TableCell>
-                                        <span
+                                        {/* <span
                                             className={`font-medium ${item?.status ===
                                                 "Accepted"
                                                 ? "text-green-600"
@@ -331,6 +355,18 @@ const ApplicantsTable = ({ searchText }) => {
                                         >
                                             {item?.status ||
                                                 "Pending"}
+                                        </span> */}
+                                        <span
+                                            className={`font-medium ${item?.status?.toLowerCase() === "accepted"
+                                                ? "text-green-600"
+                                                : item?.status?.toLowerCase() === "rejected"
+                                                    ? "text-red-600"
+                                                    : "text-yellow-600"
+                                                }`}
+                                        >
+                                            {item?.status
+                                                ? item.status.charAt(0).toUpperCase() + item.status.slice(1)
+                                                : "Pending"}
                                         </span>
                                     </TableCell>
 

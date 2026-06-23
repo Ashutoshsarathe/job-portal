@@ -74,7 +74,24 @@ const Applicants = () => {
             <ApplicantsTable searchText={searchText} />
 
         </div>
-        // <div>
+        
+    );
+};
+
+export default Applicants;
+
+
+
+
+
+
+
+
+
+
+
+
+// <div>
         //     <Navbar />
 
         //     {/* <div className="max-w-7xl mx-auto">
@@ -114,10 +131,6 @@ const Applicants = () => {
 
         //     <ApplicantsTable searchText={searchText} />
         // </div>
-    );
-};
-
-export default Applicants;
 
 
 
