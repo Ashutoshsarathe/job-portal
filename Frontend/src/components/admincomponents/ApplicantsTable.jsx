@@ -92,6 +92,8 @@ const ApplicantsTable = ({ searchText }) => {
             console.log("AFTER API");
             console.log(res.data);
 
+            window.location.reload();
+
         } catch (error) {
             console.log("ERROR");
             console.log(error);
