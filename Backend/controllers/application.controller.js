@@ -385,8 +385,13 @@ export const scheduleInterview = async (req, res) => {
             });
         }
 
+        // application.interviewDate = interviewDate;
+        // application.interviewLink = interviewLink;
+
+        // await application.save();
         application.interviewDate = interviewDate;
         application.interviewLink = interviewLink;
+        application.status = "schedule interview";
 
         await application.save();
 
