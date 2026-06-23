@@ -370,6 +370,10 @@ export const updateStatus = async (req, res) => {
 export const scheduleInterview = async (req, res) => {
     try {
 
+        console.log("SCHEDULE API HIT");
+        console.log("BODY:", req.body);
+        console.log("PARAMS:", req.params);
+
         const { interviewDate, interviewLink } = req.body;
 
         const applicationId = req.params.id;
