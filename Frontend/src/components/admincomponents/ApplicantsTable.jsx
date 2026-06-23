@@ -76,11 +76,14 @@ const ApplicantsTable = ({ searchText }) => {
         useState("");
 
     const statusHandler = async (status, id) => {
-        console.log("CLICKED");
+
+        if (status === "Schedule Interview") {
+            setSelectedApplicationId(id);
+            setShowInterviewForm(true);
+            return;
+        }
 
         try {
-            console.log("BEFORE API");
-
             const res = await axios.post(
                 `${APPLICATION_API_ENDPOINT}/status/${id}/update`,
                 { status },
@@ -89,14 +92,16 @@ const ApplicantsTable = ({ searchText }) => {
                 }
             );
 
-            console.log("AFTER API");
-            console.log(res.data);
-
-            window.location.reload();
+            if (res.data.success) {
+                toast.success(res.data.message);
+                window.location.reload();
+            }
 
         } catch (error) {
-            console.log("ERROR");
             console.log(error);
+            toast.error(
+                error?.response?.data?.message || "Something went wrong"
+            );
         }
     };
     // const statusHandler = async (status, id) => {
