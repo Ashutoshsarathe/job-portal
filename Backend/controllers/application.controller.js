@@ -491,21 +491,35 @@ export const scheduleInterview = async (req, res) => {
 
         application.interviewDate = interviewDate;
         application.interviewLink = interviewLink;
-
         console.log("STEP 4");
 
         await application.save();
 
-        console.log("STEP 5");
+        console.log("STEP 5 SAVE DONE");
 
-        // await sendEmail(...);
-
-        console.log("STEP 6");
-
+        // TEMPORARY
         return res.status(200).json({
             success: true,
             message: "Interview Scheduled"
         });
+
+        // await sendEmail(...);
+        // console.log("STEP 6");
+
+        // console.log("STEP 4");
+
+        // await application.save();
+
+        // console.log("STEP 5");
+
+        // // await sendEmail(...);
+
+        // console.log("STEP 6");
+
+        // return res.status(200).json({
+        //     success: true,
+        //     message: "Interview Scheduled"
+        // });
 
     } catch (error) {
         console.log("SCHEDULE ERROR:", error);
