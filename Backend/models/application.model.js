@@ -10,9 +10,19 @@ const applicationSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
+    // status: {
+    //     type: String,
+    //     enum: ["pending", "accepted", "rejected"],
+    //     default: "pending"
+    // },
     status: {
         type: String,
-        enum: ["pending", "accepted", "rejected"],
+        enum: [
+            "pending",
+            "accepted",
+            "rejected",
+            "schedule interview"
+        ],
         default: "pending"
     },
     interviewDate: {
