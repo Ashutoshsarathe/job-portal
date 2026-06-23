@@ -491,6 +491,7 @@ export const scheduleInterview = async (req, res) => {
 
         application.interviewDate = interviewDate;
         application.interviewLink = interviewLink;
+        application.status = "schedule interview";
         console.log("STEP 4");
 
         await application.save();
