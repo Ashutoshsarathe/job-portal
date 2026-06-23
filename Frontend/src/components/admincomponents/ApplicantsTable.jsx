@@ -145,6 +145,10 @@ const ApplicantsTable = ({ searchText }) => {
 
     const scheduleInterviewHandler = async () => {
 
+        console.log("SCHEDULE BUTTON CLICKED");
+        console.log("Date:", interviewDate);
+        console.log("Link:", interviewLink);
+
         try {
 
             const res = await axios.post(
@@ -158,16 +162,15 @@ const ApplicantsTable = ({ searchText }) => {
                 }
             );
 
-            if (res.data.success) {
+            console.log("API RESPONSE:", res.data);
 
+            if (res.data.success) {
                 toast.success(
                     "Interview Scheduled Successfully"
                 );
 
                 setShowInterviewForm(false);
-
                 setInterviewDate("");
-
                 setInterviewLink("");
 
                 window.location.reload();
@@ -175,7 +178,7 @@ const ApplicantsTable = ({ searchText }) => {
 
         } catch (error) {
 
-            console.log(error);
+            console.log("ERROR:", error);
 
             toast.error(
                 error?.response?.data?.message
